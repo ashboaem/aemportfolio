@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  actions?: Array<{ href: string; label: string; active?: boolean }>;
+}
+
+const { title, description, actions = [] } = Astro.props;
+---
+
+<section class="mb-14 sm:mb-20">
+  <div class="max-w-4xl">
+    <h1 class="display-title max-w-3xl whitespace-pre-line">{title}</h1>
+    <p class="lead-copy mt-6">{description}</p>
+    {
+      actions.length > 0 && (
+        <div class="mt-8 flex flex-wrap gap-3">
+          {actions.map((action) => (
+            <a
+              href={action.href}
+              class:list={[
+                "pill",
+                action.active && "border-transparent bg-white text-canvas hover:bg-white/90"
+              ]}
+            >
+              {action.label}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>

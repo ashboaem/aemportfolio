@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  format: string;
+  href: string;
+}
+
+const { title, format, href } = Astro.props;
+---
+
+<a href={href} target="_blank" rel="noreferrer" class="group block">
+  <div class="media-placeholder aspect-[0.72/1] transition duration-300 group-hover:-translate-y-1"></div>
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold tracking-tight text-text">{title}</h3>
+    <p class="mt-1 text-sm text-muted">{format}</p>
+  </div>
+</a>

@@ -1,0 +1,124 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ProjectSection from "../../components/ProjectSection.astro";
+import { withBase } from "../../lib/paths";
+import { projects } from "../../data/projects";
+
+export async function getStaticPaths() {
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+const navItems = [
+  ["intro", "Introduction"],
+  ["challenge", "The Problem"],
+  ["work", "The Work"],
+  ["solution", "Solution"],
+  ["priorities", "Design Priorities"],
+  ["role", "My Role"],
+  ["lessons", "Lessons Learned"]
+];
+---
+
+<BaseLayout title={`${project.title} | Ashley Klein`} description={project.summary}>
+  <section>
+    <div
+      class="media-placeholder aspect-[2.8/1] w-full bg-cover bg-center"
+      style={`background-image:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.34)), url(${withBase(project.heroImage)});`}
+    ></div>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href={withBase("/projects/")} class="pill">
+        Projects
+      </a>
+      <a href={withBase("/resume/")} class="pill">
+        Resume
+      </a>
+    </div>
+    <div class="mt-8 border-t border-line pt-4">
+      <p class="text-xs uppercase tracking-[0.2em] text-muted">
+        Projects / {project.title}
+      </p>
+    </div>
+    <div class="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px]">
+      <div>
+        <h1 class="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+          {project.summary}
+        </h1>
+      </div>
+      <aside class="surface-card h-fit p-5">
+        <p class="eyebrow">Quickview</p>
+        <dl class="mt-4 space-y-4 text-sm text-muted">
+          <div>
+            <dt class="font-semibold text-text">Categories</dt>
+            <dd>{project.categories.join(", ")}</dd>
+          </div>
+          {project.client && (
+            <div>
+              <dt class="font-semibold text-text">Client</dt>
+              <dd>{project.client}</dd>
+            </div>
+          )}
+          {project.timeline && (
+            <div>
+              <dt class="font-semibold text-text">Timeline</dt>
+              <dd>{project.timeline}</dd>
+            </div>
+          )}
+          {project.role && (
+            <div>
+              <dt class="font-semibold text-text">Role</dt>
+              <dd>{project.role}</dd>
+            </div>
+          )}
+        </dl>
+        <nav class="mt-6 space-y-2 border-t border-white/5 pt-4 text-sm text-muted">
+          {navItems.map(([id, label]) => (
+            <a href={`#${id}`} class="block transition hover:text-white">
+              {label}
+            </a>
+          ))}
+        </nav>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mt-14 grid gap-14 lg:grid-cols-[minmax(0,1fr)_240px]">
+    <div class="space-y-12">
+      <section id="intro" class="scroll-mt-24">
+        <h2 class="text-2xl font-bold tracking-tight text-text">Introduction</h2>
+        <p class="mt-4 max-w-3xl text-base leading-relaxed text-muted">{project.intro}</p>
+      </section>
+      <ProjectSection id="challenge" title="The Problem" items={project.challenge} />
+      <section id="work" class="scroll-mt-24">
+        <h2 class="text-2xl font-bold tracking-tight text-text">The Work</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-3">
+          {project.work.map((item) => (
+            <div class="space-y-3">
+              <div class="media-placeholder aspect-[0.92/1]"></div>
+              <p class="text-sm leading-relaxed text-muted">{item}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <ProjectSection id="solution" title="Solution" items={project.solution} />
+      <ProjectSection id="priorities" title="Design Priorities" items={project.designPriorities} />
+      <ProjectSection id="role" title="My Role" items={project.responsibilities} />
+      <ProjectSection id="lessons" title="Lessons Learned" items={project.lessons} />
+      <section id="showcase" class="scroll-mt-24">
+        <h2 class="text-2xl font-bold tracking-tight text-text">Showcase</h2>
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {project.showcaseImages.map((alt) => (
+            <div class="space-y-3">
+              <div class="media-placeholder aspect-square"></div>
+              <p class="text-sm text-muted">{alt}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+    <div class="hidden lg:block"></div>
+  </section>
+</BaseLayout>

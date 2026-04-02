@@ -1,0 +1,74 @@
+---
+import "../styles/global.css";
+import { withBase } from "../lib/paths";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Ashley Klein portfolio site"
+} = Astro.props;
+
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="mb-12 flex items-center justify-end sm:mb-16">
+        <div class="flex items-center gap-3 text-muted">
+          <a
+            href="https://www.youtube.com/"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full border border-white/5 p-2 transition hover:border-white/20 hover:text-white"
+            aria-label="YouTube"
+          >
+            <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current">
+              <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31.9 31.9 0 0 0 0 12a31.9 31.9 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31.9 31.9 0 0 0 24 12a31.9 31.9 0 0 0-.5-5.8ZM9.6 15.7V8.3l6.4 3.7-6.4 3.7Z"></path>
+            </svg>
+          </a>
+          <a
+            href="https://www.linkedin.com/"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full border border-white/5 p-2 transition hover:border-white/20 hover:text-white"
+            aria-label="LinkedIn"
+          >
+            <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current">
+              <path d="M4.98 3.5A2.49 2.49 0 1 0 5 8.48 2.49 2.49 0 0 0 4.98 3.5ZM2.5 9.5h5v12h-5ZM9.5 9.5h4.79v1.64h.07c.67-1.2 2.3-2.46 4.73-2.46 5.06 0 6 3.33 6 7.66v8.16h-5v-7.23c0-1.72-.03-3.94-2.4-3.94-2.4 0-2.77 1.88-2.77 3.82v7.35h-5Z"></path>
+            </svg>
+          </a>
+          <a href={withBase("/")} class="h-12 w-12 rounded-full bg-[#c5c5c5] shadow-halo sm:h-16 sm:w-16" aria-label="Homepage"></a>
+        </div>
+      </header>
+      <main class="flex-1">
+        <slot />
+      </main>
+      <footer class="mt-20 border-t border-line pt-8 text-sm text-muted sm:mt-24">
+        <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="max-w-sm text-2xl font-semibold leading-tight tracking-tight text-text">
+              Always forward, always down, and never left or right.
+            </p>
+            <p class="mt-2 text-xs">Hadrian Marlowe (Suneater)</p>
+          </div>
+          <div class="text-xs">
+            <p class="font-medium text-soft">Ashley Klein Multimedia Designer</p>
+            <p>Last updated: {year}</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroIntro from "../components/HeroIntro.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import VideoCard from "../components/VideoCard.astro";
+import { withBase } from "../lib/paths";
+import { recentVideos } from "../data/videos";
+import { projects } from "../data/projects";
+
+const featuredProjects = projects
+  .filter((entry) => entry.featured)
+  .sort((a, b) => a.order - b.order)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Ashley Klein Portfolio"
+  description="Portfolio site for Ashley Klein, multimedia designer."
+>
+  <HeroIntro
+    title={`Hey, I’m Ashley.\nI’m a Multimedia Designer.`}
+    description="I’ve been visually storytelling for about 10 years across brand, UI/UX, web, motion, and marketing."
+    actions={[
+      { href: withBase("/projects/"), label: "Projects" },
+      { href: withBase("/resume/"), label: "Resume" }
+    ]}
+  />
+
+  <section class="section-rule">
+    <SectionHeading
+      title="Featured Projects"
+      actionHref={withBase("/projects/")}
+      actionLabel="All Projects"
+    />
+    <div class="grid gap-6 md:grid-cols-3">
+      {featuredProjects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          categories={project.categories}
+          href={withBase(`/projects/${project.slug}/`)}
+          featured={true}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="section-rule mt-16">
+    <SectionHeading title="Recent Videos" actionHref="https://www.youtube.com/" actionLabel="Recents" />
+    <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {recentVideos.map((video) => <VideoCard {...video} />)}
+    </div>
+  </section>
+</BaseLayout>

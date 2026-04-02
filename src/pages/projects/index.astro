@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import HeroIntro from "../../components/HeroIntro.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { withBase } from "../../lib/paths";
+import { projects } from "../../data/projects";
+
+const orderedProjects = projects.sort((a, b) => a.order - b.order);
+---
+
+<BaseLayout title="Projects | Ashley Klein">
+  <HeroIntro
+    title={`Things I’ve built.`}
+    description="A mix of brand, UI/UX, web, video, motion, and print."
+    actions={[
+      { href: withBase("/projects/"), label: "Projects", active: true },
+      { href: withBase("/resume/"), label: "Resume" }
+    ]}
+  />
+
+  <section class="section-rule">
+    <h2 class="mb-8 text-2xl font-bold tracking-tight text-text sm:text-3xl">Projects</h2>
+    <div class="grid gap-x-6 gap-y-10 md:grid-cols-2 xl:grid-cols-3">
+      {orderedProjects.map((project) => (
+        <ProjectCard
+          title={project.title}
+          categories={project.categories}
+          href={withBase(`/projects/${project.slug}/`)}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

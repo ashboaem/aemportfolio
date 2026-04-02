@@ -1,0 +1,18 @@
+---
+interface Props {
+  title: string;
+  categories: string[];
+  href: string;
+  featured?: boolean;
+}
+
+const { title, categories, href, featured = false } = Astro.props;
+---
+
+<a href={href} class="group block">
+  <div class:list={["media-placeholder transition duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_24px_80px_rgba(0,0,0,0.35)]", featured ? "aspect-[1.6/1]" : "aspect-[1.55/1]"]}></div>
+  <div class="mt-4">
+    <h3 class="text-lg font-semibold tracking-tight text-text">{title}</h3>
+    <p class="mt-1 text-sm text-muted">{categories.join(", ")}</p>
+  </div>
+</a>
