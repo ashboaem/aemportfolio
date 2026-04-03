@@ -53,7 +53,7 @@ const navItems = [
     </div>
   </section>
 
-  <section class="mx-auto mt-12 max-w-[62rem] lg:grid lg:grid-cols-[minmax(0,44rem)_19rem] lg:gap-8">
+  <section class="mx-auto mt-12 max-w-[62rem] lg:grid lg:grid-cols-[minmax(0,44rem)_17rem] lg:gap-8">
     <div class="max-w-[44rem] space-y-10">
       <section id="intro" class="scroll-mt-24">
         <h2 class="text-lg font-semibold tracking-tight text-text sm:text-xl">Introduction</h2>
@@ -84,12 +84,12 @@ const navItems = [
     <aside class="mt-10 hidden lg:block">
       <nav
         aria-label="Project sections"
-        class="sticky top-24 rounded-[2.2rem] border border-white/[0.02] bg-[#1c1c1c] px-8 py-10 shadow-[0_1px_0_rgba(255,255,255,0.03),0_0_0_1px_rgba(255,255,255,0.015)_inset]"
+        class="sticky top-24 rounded-[2.2rem] bg-[#1c1c1c] px-7 py-10"
       >
         <div class="relative pl-9">
           <div class="absolute left-0 top-[0.15rem] h-[calc(100%-0.3rem)] w-px bg-white/12"></div>
           <div
-            class="js-project-nav-indicator absolute left-0 top-0 h-8 w-[2px] rounded-full bg-white transition-[transform,height] duration-200"
+            class="js-project-nav-indicator absolute -left-px top-0 h-8 w-[3px] rounded-full bg-white transition-[transform,height] duration-200"
           ></div>
           <div class="space-y-5">
             {navItems.map(([id, label], index) => (
